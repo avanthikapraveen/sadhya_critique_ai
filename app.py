@@ -9,8 +9,8 @@ st.set_page_config(page_title="Sadhya നിരൂപണം AI",layout="centered
 logo_path = "assets/logo.png"
 if os.path.exists(logo_path):
     st.image(logo_path, width=160)
-st.title("Sadhya നിരൂപണം AI")
-st.write("Upload a photo of your Sadhya and get a friendly, witty critique!")
+#st.title("Sadhya നിരൂപണം AI")
+st.write("Warning: This AI has zero chill. Your sadya will get roasted 🍽️🔥")
 
 uploaded_file = st.file_uploader("Upload your Sadhya photo (jpg/png):", type=["jpg", "jpeg", "png"])
 
@@ -26,12 +26,26 @@ def critique_sadhya(image_bytes):
     model = genai.GenerativeModel("gemini-1.5-flash")
     img = Image.open(io.BytesIO(image_bytes))
     prompt = """
-    You are an Onam Sadhya food critic.
-    Look at the photo of this banana leaf meal (sadhya) and give a witty critique.
-    - Mention placement of dishes, missing items, or funny details.
-    - Tone should be humorous but friendly, like teasing a friend during Onam.
-    - Keep response short (3–5 sentences).
-    """
+    You are a strict but funny sadya critic.  
+    A user uploads a photo of their banana leaf Sadya. Your job is to analyze it with both accuracy and humor.
+
+    Reference Rules (traditional Sadya placement):
+    - Starters (sweet banana chips, salted banana chips) → extreme top left.
+    - Pickles → right of chips.
+    - Ripe banana → extreme bottom left.
+    - Papadam → next to the banana.
+    - Curries on top row (from left to right, after pickles): inji-puli, olan, kaalan, thoran, mezhukkupuratti, koottu curry, aviyal, erissery, pulisseri, pachadi, kichadi, and finally theeyal at the top right.
+    - Parippu curry + ghee → bottom right.
+    - Rice → center of the leaf.
+    - Payasam → served last, usually in a small spot or cup.
+
+    How to reply:  
+    - Roast in simple English, no big words.  
+    - Point out mistakes sharply, don’t be nice.  
+    - Use sarcasm and 2–3 emojis.  
+    - 7-8 sentences only.  
+    - End with a final burn.   
+"""
     response = model.generate_content([prompt, img])
     return response.text
 
